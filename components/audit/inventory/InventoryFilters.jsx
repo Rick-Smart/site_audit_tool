@@ -42,6 +42,7 @@ export default function InventoryFilters({
         <select id="status-filter" value={statusFilter} onChange={(event) => onStatusFilterChange(event.target.value)}>
           <option value="all">All status</option>
           <option value="healthy">Healthy</option>
+          <option value="dormant">Dormant</option>
           <option value="unhealthy">Unhealthy</option>
           <option value="unknown">Unknown</option>
         </select>

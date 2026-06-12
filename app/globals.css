@@ -649,6 +649,12 @@ tbody tr:nth-child(even) {
   border: 1px solid rgba(var(--accent-rgb), 0.5);
 }
 
+.status-dormant {
+  color: var(--warn);
+  background: rgba(var(--warn-rgb), 0.16);
+  border: 1px solid rgba(var(--warn-rgb), 0.46);
+}
+
 .status-unknown {
   color: var(--muted);
   background: rgba(var(--neutral-rgb), 0.2);
