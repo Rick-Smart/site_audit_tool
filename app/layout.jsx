@@ -1,8 +1,8 @@
 import "./globals.css";
 
 export const metadata = {
-  title: "Network Site Audit Tool",
-  description: "Upload CSV exports and topology PNGs to generate a site audit readout PDF.",
+  title: "InfraLens",
+  description: "Audit, compare, and review exported infrastructure data with topology context and change tracking.",
 };
 
 export default function RootLayout({ children }) {

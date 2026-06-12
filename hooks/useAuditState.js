@@ -10,7 +10,7 @@ const DEFAULT_XLSX_EXPORT_OPTIONS = {
   includeSummary: true,
   includeNormalized: false,
   sheetNameMode: "filename",
-  filePrefix: "site_audit_export",
+  filePrefix: "infralens_export",
 };
 
 const XLSX_EXPORT_OPTIONS_STORAGE_KEY = "audit-xlsx-export-options";
@@ -26,13 +26,13 @@ const XLSX_EXPORT_PRESETS = {
     includeSummary: false,
     includeNormalized: false,
     sheetNameMode: "filename",
-    filePrefix: "site_audit_export",
+    filePrefix: "infralens_export",
   },
   FULL_WORKBOOK: {
     includeSummary: true,
     includeNormalized: true,
     sheetNameMode: "type-filename",
-    filePrefix: "site_audit_export",
+    filePrefix: "infralens_export",
   },
 };
 
