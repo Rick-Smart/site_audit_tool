@@ -12,6 +12,23 @@ const DEFAULT_XLSX_EXPORT_OPTIONS = {
   filePrefix: "site_audit_export",
 };
 
+const XLSX_EXPORT_OPTIONS_STORAGE_KEY = "audit-xlsx-export-options";
+
+const XLSX_EXPORT_PRESETS = {
+  RAW_ONLY: {
+    includeSummary: false,
+    includeNormalized: false,
+    sheetNameMode: "filename",
+    filePrefix: "site_audit_export",
+  },
+  FULL_WORKBOOK: {
+    includeSummary: true,
+    includeNormalized: true,
+    sheetNameMode: "type-filename",
+    filePrefix: "site_audit_export",
+  },
+};
+
 export function useAuditState() {
   const [dataByType, setDataByType] = useState({});
   const [csvFiles, setCsvFiles] = useState([]);
@@ -169,6 +186,27 @@ export function useAuditState() {
     }
   }, [hasSiteData, siteFilter]);
 
+  useEffect(() => {
+    const saved = window.localStorage.getItem(XLSX_EXPORT_OPTIONS_STORAGE_KEY);
+    if (!saved) {
+      return;
+    }
+
+    try {
+      const parsed = JSON.parse(saved);
+      setXlsxExportOptions((current) => ({
+        ...current,
+        ...parsed,
+      }));
+    } catch {
+      // Ignore malformed persisted options and keep defaults.
+    }
+  }, []);
+
+  useEffect(() => {
+    window.localStorage.setItem(XLSX_EXPORT_OPTIONS_STORAGE_KEY, JSON.stringify(xlsxExportOptions));
+  }, [xlsxExportOptions]);
+
   const toggleExportField = (type, key) => {
     setSelectedExportFieldsByType((current) => {
       const currentTypeSelection = current[type] || [];
@@ -187,6 +225,18 @@ export function useAuditState() {
     setXlsxExportOptions((current) => ({
       ...current,
       [key]: value,
+    }));
+  };
+
+  const applyXlsxExportPreset = (presetKey) => {
+    const preset = XLSX_EXPORT_PRESETS[presetKey];
+    if (!preset) {
+      return;
+    }
+
+    setXlsxExportOptions((current) => ({
+      ...current,
+      ...preset,
     }));
   };
 
@@ -321,6 +371,7 @@ export function useAuditState() {
     setActiveMachineId,
     toggleExportField,
     updateXlsxExportOption,
+    applyXlsxExportPreset,
     clearAllData,
   };
 }

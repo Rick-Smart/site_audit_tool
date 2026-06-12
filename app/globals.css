@@ -457,6 +457,14 @@ h1 {
   font-weight: 600;
 }
 
+.status--success {
+  color: var(--ok);
+}
+
+.status--error {
+  color: var(--warn);
+}
+
 .panel {
   background: linear-gradient(160deg, var(--card-grad-start) 0%, var(--card-grad-end) 100%);
   border: 1px solid var(--border);
@@ -702,6 +710,21 @@ tbody tr:nth-child(even) {
   gap: 0.65rem;
 }
 
+.xlsx-presets-row {
+  display: flex;
+  gap: 0.55rem;
+  margin-bottom: 0.65rem;
+}
+
+.xlsx-preset-btn {
+  width: auto;
+  padding: 0.45rem 0.8rem;
+  font-size: 0.82rem;
+  font-weight: 600;
+  background: linear-gradient(120deg, rgba(var(--accent-rgb), 0.22), rgba(var(--accent-2-rgb), 0.18));
+  border-color: rgba(var(--accent-2-rgb), 0.44);
+}
+
 .xlsx-options-grid .field-toggle {
   min-height: 2.25rem;
 }
@@ -837,6 +860,10 @@ button:disabled {
     grid-template-columns: 1fr;
   }
 
+  .xlsx-presets-row {
+    flex-direction: column;
+  }
+
   .actions {
     justify-content: stretch;
   }
@@ -915,6 +942,10 @@ button:disabled {
 
   .xlsx-options-grid {
     grid-template-columns: 1fr;
+  }
+
+  .xlsx-presets-row {
+    flex-direction: column;
   }
 
   .fab-download {

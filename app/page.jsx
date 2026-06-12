@@ -19,6 +19,8 @@ const THEME_OPTIONS = [
 export default function HomePage() {
   const audit = useAuditState();
   const [theme, setTheme] = useState("gmi");
+  const [xlsxExportMessage, setXlsxExportMessage] = useState("");
+  const [xlsxExportMessageTone, setXlsxExportMessageTone] = useState("success");
 
   useEffect(() => {
     const savedTheme = window.localStorage.getItem("audit-theme");
@@ -33,6 +35,20 @@ export default function HomePage() {
     document.documentElement.setAttribute("data-theme", theme);
     window.localStorage.setItem("audit-theme", theme);
   }, [theme]);
+
+  useEffect(() => {
+    if (!xlsxExportMessage) {
+      return;
+    }
+
+    const timeoutId = window.setTimeout(() => {
+      setXlsxExportMessage("");
+    }, 3200);
+
+    return () => {
+      window.clearTimeout(timeoutId);
+    };
+  }, [xlsxExportMessage]);
 
   return (
     <main className="page-shell">
@@ -54,16 +70,31 @@ export default function HomePage() {
         visible={audit.csvFiles.length > 0}
         options={audit.xlsxExportOptions}
         onOptionChange={audit.updateXlsxExportOption}
+        onPreset={audit.applyXlsxExportPreset}
       />
 
       {audit.isProcessing && <p className="status">Analyzing CSV files...</p>}
+      {xlsxExportMessage && (
+        <p className={`status ${xlsxExportMessageTone === "error" ? "status--error" : "status--success"}`}>
+          {xlsxExportMessage}
+        </p>
+      )}
 
       <button
         type="button"
         className={`fab-download fab-download--xlsx${audit.csvFiles.length > 0 ? " fab-download--active" : ""}`}
         disabled={audit.csvFiles.length === 0}
         onClick={() => {
-          generateWorkbookExport(audit.csvFiles, audit.xlsxExportOptions, audit.dataByType);
+          try {
+            const result = generateWorkbookExport(audit.csvFiles, audit.xlsxExportOptions, audit.dataByType);
+            if (result) {
+              setXlsxExportMessageTone("success");
+              setXlsxExportMessage(`XLSX exported: ${result.fileName} (${result.sheetCount} sheets)`);
+            }
+          } catch (error) {
+            setXlsxExportMessageTone("error");
+            setXlsxExportMessage(error instanceof Error ? `XLSX export failed: ${error.message}` : "XLSX export failed.");
+          }
         }}
       >
         <span className="fab-download__icon" aria-hidden="true">📊</span>

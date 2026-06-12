@@ -5,13 +5,30 @@ const SHEET_NAME_OPTIONS = [
   { value: "type-filename", label: "Type + Filename" },
 ];
 
-export default function XlsxExportOptionsPanel({ visible, options, onOptionChange }) {
+export default function XlsxExportOptionsPanel({ visible, options, onOptionChange, onPreset }) {
   if (!visible) {
     return null;
   }
 
   return (
     <Panel title="XLSX Export Options" revealClass="reveal delayed-2">
+      <div className="xlsx-presets-row">
+        <button
+          type="button"
+          className="xlsx-preset-btn"
+          onClick={() => onPreset("RAW_ONLY")}
+        >
+          Raw Only Preset
+        </button>
+        <button
+          type="button"
+          className="xlsx-preset-btn"
+          onClick={() => onPreset("FULL_WORKBOOK")}
+        >
+          Full Workbook Preset
+        </button>
+      </div>
+
       <div className="xlsx-options-grid">
         <label className="field-toggle">
           <input
