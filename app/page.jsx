@@ -62,6 +62,7 @@ export default function HomePage() {
       <UploadSection
         stats={audit.stats}
         onCsvChange={audit.onCsvChange}
+        onBaselineCsvChange={audit.onBaselineCsvChange}
         onPngChange={audit.onPngChange}
         onClearData={audit.clearAllData}
       />
@@ -80,13 +81,33 @@ export default function HomePage() {
         </p>
       )}
 
+      {audit.diffReport?.hasBaseline && (
+        <div className="export-note-card reveal delayed-3">
+          <strong>Baseline detected</strong>
+          <span>
+            {audit.diffExportOptions.exportScope === "changes-only"
+              ? "PDF and XLSX exports will include only the filtered delta set."
+              : "PDF and XLSX exports will include the full report plus the filtered delta set."}
+          </span>
+          <span>
+            Filter: {String(audit.diffExportOptions.changeTypeFilter || "all").replace(/-/g, " ")}
+          </span>
+        </div>
+      )}
+
       <button
         type="button"
         className={`fab-download fab-download--xlsx${audit.csvFiles.length > 0 ? " fab-download--active" : ""}`}
         disabled={audit.csvFiles.length === 0}
         onClick={() => {
           try {
-            const result = generateWorkbookExport(audit.csvFiles, audit.xlsxExportOptions, audit.dataByType);
+            const result = generateWorkbookExport(
+              audit.csvFiles,
+              audit.xlsxExportOptions,
+              audit.dataByType,
+              audit.filteredDiffReport,
+              { changesOnly: audit.diffExportOptions.exportScope === "changes-only" }
+            );
             if (result) {
               setXlsxExportMessageTone("success");
               setXlsxExportMessage(`XLSX exported: ${result.fileName} (${result.sheetCount} sheets)`);
@@ -115,7 +136,12 @@ export default function HomePage() {
             audit.selectedExportFieldsByType,
             audit.exportFieldOptionsByType,
             audit.dataByType,
-            theme
+            audit.filteredDiffReport,
+            theme,
+            {
+              changesOnly: audit.diffExportOptions.exportScope === "changes-only",
+              changeTypeFilter: audit.diffExportOptions.changeTypeFilter,
+            }
           );
         }}
       >
@@ -147,6 +173,9 @@ export default function HomePage() {
         exportFieldOptionsByType={audit.exportFieldOptionsByType}
         onToggleField={audit.toggleExportField}
         dataByType={audit.dataByType}
+        diffReport={audit.filteredDiffReport}
+        diffExportOptions={audit.diffExportOptions}
+        onDiffOptionChange={audit.updateDiffExportOption}
         topologies={audit.topologies}
       />
     </main>

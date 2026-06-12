@@ -1,4 +1,5 @@
 import CsvSummaryPanel from "./CsvSummaryPanel";
+import ChangesPanel from "./ChangesPanel";
 import DynamicInventoryPanel from "./DynamicInventoryPanel";
 import FindingsPanel from "./FindingsPanel";
 import MachineInventoryPanel from "./MachineInventoryPanel";
@@ -31,6 +32,9 @@ export default function ReportSections({
   exportFieldOptionsByType = {},
   onToggleField = () => {},
   dataByType = {},
+  diffReport,
+  diffExportOptions,
+  onDiffOptionChange,
   topologies,
 }) {
   const nonDeviceTypes = [CSV_TYPES.ADMINS, CSV_TYPES.USERS, CSV_TYPES.GENERIC];
@@ -40,6 +44,11 @@ export default function ReportSections({
       <WarningsPanel errors={errors} />
       <FindingsPanel findings={findings} />
       <CsvSummaryPanel summaries={summaries} />
+      <ChangesPanel
+        diffReport={diffReport}
+        diffExportOptions={diffExportOptions}
+        onDiffOptionChange={onDiffOptionChange}
+      />
       <MachineInventoryPanel
         machineInventory={machineInventory}
         filteredInventory={filteredInventory}

@@ -1,7 +1,7 @@
 import UploadCard from "../ui/UploadCard";
 import PrimaryButton from "../ui/PrimaryButton";
 
-export default function UploadSection({ stats, onCsvChange, onPngChange, onClearData }) {
+export default function UploadSection({ stats, onCsvChange, onBaselineCsvChange, onPngChange, onClearData }) {
   return (
     <section className="upload-grid reveal delayed-2">
       <UploadCard
@@ -15,6 +15,16 @@ export default function UploadSection({ stats, onCsvChange, onPngChange, onClear
       />
 
       <UploadCard
+        id="baseline-csv-input"
+        title="Baseline CSVs"
+        subtitle="Reference dataset for change tracking"
+        triggerText="Select Baseline CSV Files"
+        metaText={stats.baselineFiles > 0 ? `${stats.baselineFiles} loaded` : "No baseline selected"}
+        accept=".csv,text/csv"
+        onChange={onBaselineCsvChange}
+      />
+
+      <UploadCard
         id="png-input"
         title="Topology PNGs"
         subtitle="Optional topology visuals for report context"
@@ -25,12 +35,12 @@ export default function UploadSection({ stats, onCsvChange, onPngChange, onClear
       />
 
       {stats.files > 0 && (
-        <div className="upload-card" style={{ gridColumn: "span 2", display: "flex", alignItems: "center", justifyContent: "space-between", padding: "1rem" }}>
+        <div className="upload-card upload-card--clear">
           <div>
-            <p className="upload-title" style={{ margin: 0 }}>Clear Data</p>
-            <p className="upload-subtitle" style={{ margin: "0.25rem 0 0" }}>Remove all uploaded files and start fresh</p>
+            <p className="upload-title upload-title--compact">Clear Data</p>
+            <p className="upload-subtitle upload-subtitle--compact">Remove all uploaded files and start fresh</p>
           </div>
-          <PrimaryButton onClick={onClearData} style={{ whiteSpace: "nowrap" }}>
+          <PrimaryButton onClick={onClearData} className="button--nowrap">
             Clear All
           </PrimaryButton>
         </div>
