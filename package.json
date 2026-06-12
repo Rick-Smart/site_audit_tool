@@ -1,0 +1,34 @@
+{
+  "name": "network-site-audit-tool",
+  "version": "0.1.0",
+  "private": true,
+  "engines": {
+    "node": "24.x"
+  },
+  "scripts": {
+    "preflight": "node scripts/check-node.mjs",
+    "dev": "npm run preflight && next dev",
+    "build": "npm run preflight && next build",
+    "build:static": "npm run preflight && cross-env STATIC_EXPORT=true next build",
+    "build:static:gh": "npm run preflight && cross-env STATIC_EXPORT=true BASE_PATH=/${npm_package_name} next build",
+    "start": "npm run preflight && next start",
+    "lint": "npm run preflight && next lint",
+    "verify": "npm run preflight && npm run lint && npm run build",
+    "verify:static": "npm run preflight && npm run lint && npm run build:static",
+    "docker:up": "docker compose up --build",
+    "docker:down": "docker compose down"
+  },
+  "dependencies": {
+    "jspdf": "^2.5.2",
+    "jspdf-autotable": "^3.8.2",
+    "next": "^15.0.0",
+    "papaparse": "^5.4.1",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1"
+  },
+  "devDependencies": {
+    "cross-env": "^7.0.3",
+    "eslint": "^9.17.0",
+    "eslint-config-next": "^15.0.0"
+  }
+}
