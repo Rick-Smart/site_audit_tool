@@ -5,6 +5,7 @@ import HeroSection from "../components/audit/HeroSection";
 import StatsSection from "../components/audit/StatsSection";
 import UploadSection from "../components/audit/UploadSection";
 import ReportSections from "../components/audit/ReportSections";
+import XlsxExportOptionsPanel from "../components/audit/XlsxExportOptionsPanel";
 import { useAuditState } from "../hooks/useAuditState";
 import { generatePdf } from "../lib/pdfReport";
 import { generateWorkbookExport } from "../lib/excelReport";
@@ -49,6 +50,12 @@ export default function HomePage() {
         onClearData={audit.clearAllData}
       />
 
+      <XlsxExportOptionsPanel
+        visible={audit.csvFiles.length > 0}
+        options={audit.xlsxExportOptions}
+        onOptionChange={audit.updateXlsxExportOption}
+      />
+
       {audit.isProcessing && <p className="status">Analyzing CSV files...</p>}
 
       <button
@@ -56,7 +63,7 @@ export default function HomePage() {
         className={`fab-download fab-download--xlsx${audit.csvFiles.length > 0 ? " fab-download--active" : ""}`}
         disabled={audit.csvFiles.length === 0}
         onClick={() => {
-          generateWorkbookExport(audit.csvFiles);
+          generateWorkbookExport(audit.csvFiles, audit.xlsxExportOptions, audit.dataByType);
         }}
       >
         <span className="fab-download__icon" aria-hidden="true">📊</span>

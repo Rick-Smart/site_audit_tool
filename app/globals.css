@@ -696,6 +696,16 @@ tbody tr:nth-child(even) {
   accent-color: var(--accent);
 }
 
+.xlsx-options-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.65rem;
+}
+
+.xlsx-options-grid .field-toggle {
+  min-height: 2.25rem;
+}
+
 .topology-grid {
   display: grid;
   gap: 0.9rem;
@@ -823,6 +833,10 @@ button:disabled {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
+  .xlsx-options-grid {
+    grid-template-columns: 1fr;
+  }
+
   .actions {
     justify-content: stretch;
   }
@@ -896,6 +910,10 @@ button:disabled {
   }
 
   .field-picker-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .xlsx-options-grid {
     grid-template-columns: 1fr;
   }
 

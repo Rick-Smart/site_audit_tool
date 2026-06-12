@@ -5,6 +5,13 @@ import { readDataUrl, readTextFile, parseCsvText, getImageDimensions } from "../
 import { detectCsvType, CSV_TYPES } from "../lib/csvTypeDetection";
 import { buildGenericInventory, buildCsvSummary } from "../lib/genericCsvProcessor";
 
+const DEFAULT_XLSX_EXPORT_OPTIONS = {
+  includeSummary: true,
+  includeNormalized: false,
+  sheetNameMode: "filename",
+  filePrefix: "site_audit_export",
+};
+
 export function useAuditState() {
   const [dataByType, setDataByType] = useState({});
   const [csvFiles, setCsvFiles] = useState([]);
@@ -18,6 +25,7 @@ export function useAuditState() {
   const [searchQuery, setSearchQuery] = useState("");
   const [activeMachineId, setActiveMachineId] = useState("");
   const [selectedExportFieldsByType, setSelectedExportFieldsByType] = useState({});
+  const [xlsxExportOptions, setXlsxExportOptions] = useState(DEFAULT_XLSX_EXPORT_OPTIONS);
 
   const findings = useMemo(() => {
     if (summaries.length === 0) {
@@ -175,6 +183,13 @@ export function useAuditState() {
     });
   };
 
+  const updateXlsxExportOption = (key, value) => {
+    setXlsxExportOptions((current) => ({
+      ...current,
+      [key]: value,
+    }));
+  };
+
   const onCsvChange = async (event) => {
     const files = Array.from(event.target.files ?? []);
 
@@ -268,6 +283,7 @@ export function useAuditState() {
     setErrors([]);
     setActiveMachineId("");
     setSelectedExportFieldsByType({});
+    setXlsxExportOptions(DEFAULT_XLSX_EXPORT_OPTIONS);
     setTopologies([]);
   };
 
@@ -286,6 +302,7 @@ export function useAuditState() {
     activeMachineId,
     selectedExportFields,
     selectedExportFieldsByType,
+    xlsxExportOptions,
     findings,
     stats,
     fileOptions,
@@ -303,6 +320,7 @@ export function useAuditState() {
     setSearchQuery,
     setActiveMachineId,
     toggleExportField,
+    updateXlsxExportOption,
     clearAllData,
   };
 }
