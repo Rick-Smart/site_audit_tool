@@ -333,6 +333,10 @@ h1 {
   line-height: 1;
 }
 
+.fab-download--xlsx {
+  bottom: 5rem;
+}
+
 .stat-card strong {
   margin-top: 0.3rem;
   display: block;
@@ -833,6 +837,10 @@ button:disabled {
     font-size: 0.82rem;
     padding: 0.6rem 0.9rem;
   }
+
+  .fab-download--xlsx {
+    bottom: 4.5rem;
+  }
 }
 
 @media (max-width: 640px) {
@@ -898,6 +906,10 @@ button:disabled {
     font-size: 0.75rem;
   }
 
+  .fab-download--xlsx {
+    bottom: 4rem;
+  }
+
   table {
     font-size: 0.8rem;
   }
@@ -961,6 +973,10 @@ button:disabled {
     padding: 0.4rem 0.6rem;
     font-size: 0.7rem;
     gap: 0.3rem;
+  }
+
+  .fab-download--xlsx {
+    bottom: 3.5rem;
   }
 
   .inventory-toolbar {

@@ -7,6 +7,7 @@ import { buildGenericInventory, buildCsvSummary } from "../lib/genericCsvProcess
 
 export function useAuditState() {
   const [dataByType, setDataByType] = useState({});
+  const [csvFiles, setCsvFiles] = useState([]);
   const [summaries, setSummaries] = useState([]);
   const [errors, setErrors] = useState([]);
   const [isProcessing, setIsProcessing] = useState(false);
@@ -183,6 +184,7 @@ export function useAuditState() {
 
     setIsProcessing(true);
     const nextDataByType = { ...dataByType };
+    const nextCsvFiles = [...csvFiles];
     const nextSummaries = [...summaries];
     const nextErrors = [...errors];
 
@@ -201,6 +203,13 @@ export function useAuditState() {
 
         const columns = Object.keys(rows[0]);
         const detectedType = detectCsvType(columns, file.name);
+
+        nextCsvFiles.push({
+          fileName: file.name,
+          detectedType,
+          headers: columns,
+          rows,
+        });
 
         if (detectedType === CSV_TYPES.DEVICES) {
           const summary = summarizeCsv(file.name, rows);
@@ -230,6 +239,7 @@ export function useAuditState() {
     }
 
     setDataByType(nextDataByType);
+    setCsvFiles(nextCsvFiles);
     setSummaries(nextSummaries);
     setErrors(nextErrors);
     setIsProcessing(false);
@@ -253,6 +263,7 @@ export function useAuditState() {
 
   const clearAllData = () => {
     setDataByType({});
+    setCsvFiles([]);
     setSummaries([]);
     setErrors([]);
     setActiveMachineId("");
@@ -261,6 +272,7 @@ export function useAuditState() {
   };
 
   return {
+    csvFiles,
     summaries,
     machineInventory,
     dataByType,

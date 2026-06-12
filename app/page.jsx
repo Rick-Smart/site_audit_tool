@@ -7,6 +7,7 @@ import UploadSection from "../components/audit/UploadSection";
 import ReportSections from "../components/audit/ReportSections";
 import { useAuditState } from "../hooks/useAuditState";
 import { generatePdf } from "../lib/pdfReport";
+import { generateWorkbookExport } from "../lib/excelReport";
 
 const THEME_OPTIONS = [
   { value: "gmi", label: "GMI Brand" },
@@ -49,6 +50,18 @@ export default function HomePage() {
       />
 
       {audit.isProcessing && <p className="status">Analyzing CSV files...</p>}
+
+      <button
+        type="button"
+        className={`fab-download fab-download--xlsx${audit.csvFiles.length > 0 ? " fab-download--active" : ""}`}
+        disabled={audit.csvFiles.length === 0}
+        onClick={() => {
+          generateWorkbookExport(audit.csvFiles);
+        }}
+      >
+        <span className="fab-download__icon" aria-hidden="true">📊</span>
+        <span className="fab-download__label">Export XLSX</span>
+      </button>
 
       <button
         type="button"
