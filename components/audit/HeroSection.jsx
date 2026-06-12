@@ -1,6 +1,8 @@
 import Image from "next/image";
 
 export default function HeroSection() {
+  const basePath = process.env.NEXT_PUBLIC_BASE_PATH || "";
+
   return (
     <section className="hero-card reveal">
       <div>
@@ -13,7 +15,7 @@ export default function HeroSection() {
       </div>
 
       <div className="hero-side">
-        <Image src="/gmi-logo-white.png" alt="GMI" className="hero-logo" width={220} height={79} priority />
+        <Image src={`${basePath}/gmi-logo-white.png`} alt="GMI" className="hero-logo" width={220} height={79} priority />
         <div className="hero-meta">
           <p>Runtime Mode</p>
           <strong>Client-side Analysis</strong>
