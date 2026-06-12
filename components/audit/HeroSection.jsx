@@ -6,11 +6,11 @@ export default function HeroSection({ theme, themeOptions, onThemeChange }) {
   return (
     <section className="hero-card reveal">
       <div>
-        <p className="eyebrow">Network Engineering Toolkit</p>
-        <h1>Site Audit Readout Generator</h1>
+        <p className="eyebrow">InfraLens</p>
+        <h1>Infrastructure Audit and Change Review</h1>
         <p className="lead">
-          Analyze dashboard exports, validate data quality, overlay topology context, and generate a clean audit
-          package for review.
+          Audit, compare, and review CSV exports across infrastructure, users, equipment, and network data with
+          topology context and clean change reporting.
         </p>
       </div>
 

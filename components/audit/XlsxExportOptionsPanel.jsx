@@ -70,7 +70,7 @@ export default function XlsxExportOptionsPanel({ visible, options, onOptionChang
             type="text"
             value={options.filePrefix}
             onChange={(event) => onOptionChange("filePrefix", event.target.value)}
-            placeholder="site_audit_export"
+            placeholder="infralens_export"
           />
         </div>
       </div>
