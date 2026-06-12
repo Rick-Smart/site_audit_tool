@@ -200,7 +200,7 @@ export function useAuditState() {
         }
 
         const columns = Object.keys(rows[0]);
-        const detectedType = detectCsvType(columns);
+        const detectedType = detectCsvType(columns, file.name);
 
         if (detectedType === CSV_TYPES.DEVICES) {
           const summary = summarizeCsv(file.name, rows);
