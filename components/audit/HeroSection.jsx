@@ -1,6 +1,6 @@
 import Image from "next/image";
 
-export default function HeroSection() {
+export default function HeroSection({ theme, themeOptions, onThemeChange }) {
   const basePath = process.env.NEXT_PUBLIC_BASE_PATH || "";
 
   return (
@@ -17,6 +17,19 @@ export default function HeroSection() {
       <div className="hero-side">
         <Image src={`${basePath}/gmi-logo-white.png`} alt="GMI" className="hero-logo" width={220} height={79} priority />
         <div className="hero-meta">
+          <p>Theme</p>
+          <select
+            className="theme-select"
+            value={theme}
+            onChange={(event) => onThemeChange(event.target.value)}
+            aria-label="Select color theme"
+          >
+            {themeOptions.map((option) => (
+              <option key={option.value} value={option.value}>
+                {option.label}
+              </option>
+            ))}
+          </select>
           <p>Runtime Mode</p>
           <strong>Client-side Analysis</strong>
           <p>Report Output</p>

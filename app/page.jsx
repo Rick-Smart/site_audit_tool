@@ -1,19 +1,44 @@
 "use client";
 
+import { useEffect, useState } from "react";
 import HeroSection from "../components/audit/HeroSection";
 import StatsSection from "../components/audit/StatsSection";
 import UploadSection from "../components/audit/UploadSection";
 import ReportSections from "../components/audit/ReportSections";
-import PrimaryButton from "../components/ui/PrimaryButton";
 import { useAuditState } from "../hooks/useAuditState";
 import { generatePdf } from "../lib/pdfReport";
 
+const THEME_OPTIONS = [
+  { value: "gmi", label: "GMI Brand" },
+  { value: "default", label: "Default Dark" },
+  { value: "classic-blue", label: "Classic Blue" },
+];
+
 export default function HomePage() {
   const audit = useAuditState();
+  const [theme, setTheme] = useState("gmi");
+
+  useEffect(() => {
+    const savedTheme = window.localStorage.getItem("audit-theme");
+    if (savedTheme && THEME_OPTIONS.some((item) => item.value === savedTheme)) {
+      setTheme(savedTheme);
+      return;
+    }
+    setTheme("gmi");
+  }, []);
+
+  useEffect(() => {
+    document.documentElement.setAttribute("data-theme", theme);
+    window.localStorage.setItem("audit-theme", theme);
+  }, [theme]);
 
   return (
     <main className="page-shell">
-      <HeroSection />
+      <HeroSection
+        theme={theme}
+        themeOptions={THEME_OPTIONS}
+        onThemeChange={setTheme}
+      />
       <StatsSection stats={audit.stats} />
 
       <UploadSection
@@ -38,7 +63,8 @@ export default function HomePage() {
             audit.filteredInventory,
             audit.selectedExportFieldsByType,
             audit.exportFieldOptionsByType,
-            audit.dataByType
+            audit.dataByType,
+            theme
           );
         }}
       >
