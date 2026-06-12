@@ -356,7 +356,7 @@ h1 {
 .upload-grid {
   display: grid;
   gap: 0.75rem;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
+  grid-template-columns: repeat(3, minmax(0, 1fr));
 }
 
 .upload-card {
@@ -406,6 +406,31 @@ h1 {
 .upload-subtitle {
   color: var(--muted);
   font-size: 0.92rem;
+}
+
+.upload-card--clear {
+  grid-column: span 3;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem;
+  cursor: default;
+}
+
+.upload-card--clear:hover {
+  transform: none;
+}
+
+.upload-title--compact {
+  margin: 0;
+}
+
+.upload-subtitle--compact {
+  margin: 0.25rem 0 0;
+}
+
+.button--nowrap {
+  white-space: nowrap;
 }
 
 .upload-action-row {
@@ -626,6 +651,72 @@ tbody tr:nth-child(even) {
   margin: 0 0 0.65rem;
   color: var(--muted);
   font-size: 0.84rem;
+}
+
+.change-stats-grid {
+  display: grid;
+  gap: 0.65rem;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  margin-bottom: 0.8rem;
+}
+
+.change-controls-grid {
+  display: grid;
+  gap: 0.65rem;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  margin-bottom: 0.65rem;
+}
+
+.change-controls-note {
+  margin-bottom: 0.9rem;
+}
+
+.change-detail-list {
+  display: grid;
+  gap: 0.2rem;
+}
+
+.change-detail-item {
+  line-height: 1.35;
+  white-space: normal;
+  word-break: break-word;
+}
+
+.change-detail-item strong {
+  color: var(--ink);
+}
+
+.change-detail-more {
+  color: var(--muted);
+  font-size: 0.8rem;
+}
+
+.export-note-card {
+  position: fixed;
+  right: 1.5rem;
+  bottom: 8.7rem;
+  z-index: 95;
+  width: min(320px, calc(100vw - 2rem));
+  display: grid;
+  gap: 0.2rem;
+  padding: 0.8rem 0.9rem;
+  border-radius: 14px;
+  border: 1px solid rgba(var(--accent-2-rgb), 0.42);
+  background: linear-gradient(160deg, rgba(var(--accent-rgb), 0.18), rgba(var(--glow-b-rgb), 0.16));
+  box-shadow: 0 8px 28px rgba(0, 0, 0, 0.4);
+  color: var(--ink);
+  backdrop-filter: blur(10px);
+}
+
+.export-note-card strong {
+  font-family: "Chakra Petch", sans-serif;
+  font-size: 0.98rem;
+}
+
+.export-note-card span {
+  color: var(--muted);
+  font-size: 0.82rem;
+  line-height: 1.4;
 }
 
 .status-pill {
@@ -854,6 +945,20 @@ button:disabled {
     grid-template-columns: 1fr;
   }
 
+  .upload-card--clear {
+    grid-column: span 1;
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .change-stats-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .change-controls-grid {
+    grid-template-columns: 1fr;
+  }
+
   .inventory-toolbar {
     grid-template-columns: 1fr;
   }
@@ -887,6 +992,12 @@ button:disabled {
 
   .fab-download--xlsx {
     bottom: 4.5rem;
+  }
+
+  .export-note-card {
+    right: 1rem;
+    bottom: 8rem;
+    width: min(300px, calc(100vw - 2rem));
   }
 }
 
