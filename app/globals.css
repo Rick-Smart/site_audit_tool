@@ -16,7 +16,15 @@
   --upload-grad-start: #1a1115;
   --upload-grad-end: #110c0e;
   --select-bg: #110d10;
+  --input-bg: #130e10;
   --meta-bg: rgba(9, 12, 19, 0.78);
+  --code-bg: #0d0709;
+  --code-text: #f4cdd1;
+  --code-border: #3d1f24;
+  --toggle-bg: #160f11;
+  --toggle-text: #edd8da;
+  --card-dark-bg: #120b0d;
+  --image-bg: #0e0809;
   --panel: #161d2c;
   --panel-2: #141b29;
   --ink: #eef1f7;
@@ -42,7 +50,15 @@
   --upload-grad-start: #131820;
   --upload-grad-end: #0d1117;
   --select-bg: #151a24;
+  --input-bg: #151a24;
   --meta-bg: rgba(13, 17, 23, 0.78);
+  --code-bg: #0f1419;
+  --code-text: #d8e4f0;
+  --code-border: #324455;
+  --toggle-bg: #1a2331;
+  --toggle-text: #d4dfe8;
+  --card-dark-bg: #151f2d;
+  --image-bg: #101621;
   --accent: #8a99b0;
   --accent-2: #a6b5cc;
   --warn: #f1b54a;
@@ -56,7 +72,15 @@
   --accent-2-rgb: 88, 166, 255;
   --glow-a-rgb: 43, 125, 233;
   --glow-b-rgb: 29, 88, 171;
-  --glow-c-rgb: 20, 63, 121;
+  --input-bg: #0f1528;
+  --meta-bg: rgba(8, 16, 25, 0.78);
+  --code-bg: #0a1120;
+  --code-text: #d4e8ff;
+  --code-border: #1d4577;
+  --toggle-bg: #142447;
+  --toggle-text: #c8d9f0;
+  --card-dark-bg: #0f1a2e;
+  --image-bg: #0a1520
   --body-bg: #060b14;
   --card-grad-start: #0f1a30;
   --card-grad-end: #0a1220;
@@ -560,8 +584,8 @@ tbody tr:nth-child(even) {
 .control-group select,
 .control-group input {
   border: 1px solid var(--border);
-  background: #130e10;
-  color: #e8d8da;
+  background: var(--input-bg);
+  color: var(--toggle-text);
   border-radius: 9px;
   padding: 0.5rem 0.58rem;
   font-size: 0.88rem;
@@ -628,9 +652,9 @@ tbody tr:nth-child(even) {
   margin: 0;
   max-height: 260px;
   overflow: auto;
-  color: #f4cdd1;
-  background: #0d0709;
-  border: 1px solid #3d1f24;
+  color: var(--code-text);
+  background: var(--code-bg);
+  border: 1px solid var(--code-border);
   border-radius: 8px;
   padding: 0.65rem;
   font-size: 0.76rem;
@@ -648,10 +672,10 @@ tbody tr:nth-child(even) {
   align-items: center;
   gap: 0.45rem;
   border: 1px solid var(--border);
-  background: #160f11;
+  background: var(--toggle-bg);
   border-radius: 9px;
   padding: 0.45rem 0.55rem;
-  color: #edd8da;
+  color: var(--toggle-text);
   font-size: 0.86rem;
 }
 
@@ -670,7 +694,7 @@ tbody tr:nth-child(even) {
   border: 1px solid var(--border);
   border-radius: 12px;
   overflow: hidden;
-  background: #120b0d;
+  background: var(--card-dark-bg);
 }
 
 .topology-image {
@@ -678,7 +702,7 @@ tbody tr:nth-child(even) {
   width: 100%;
   height: 210px;
   object-fit: contain;
-  background: #0e0809;
+  background: var(--image-bg);
 }
 
 .topology-card figcaption {
